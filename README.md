@@ -37,11 +37,13 @@ Follow these steps to run the entire workflow:
 Ensure Docker is installed and the `docker-compose.yml` is in the project root. Then run:
 ```bash
 docker-compose up -d
+```
 
 ### 2. Generate the Data Files
 Run the data generation script to create the CSV files:
 ```bash
 python .\generate_data.py
+```
 
 ### 3. Copy Files into the Spark Container
 Copy the analysis script and the generated CSV files into your Spark container:
@@ -49,21 +51,24 @@ Copy the analysis script and the generated CSV files into your Spark container:
 docker cp .\code1.py my-spark-master:/opt/bitnami/spark
 docker cp .\songs_metadata.csv my-spark-master:/opt/bitnami/spark
 docker cp .\listening_logs.csv my-spark-master:/opt/bitnami/spark
+```
 
 ### 4. Run the Spark Analysis Job
 Enter the Spark container shell:
 ```bash
 docker exec -it my-spark-master bash
+```
 
 Inside the container, run the Spark job using:
 
 ```bash
 spark-submit code1.py
+```
 
 5. Retrieve the Output Files
 After the job completes, exit the container shell and copy the output folder from the container to your host machine:
 ```bash
 exit
 docker cp my-spark-master:/opt/bitnami/spark/output/ /outputs
-
+```
 
